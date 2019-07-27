@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val loginModule = module {
     scope(named<LoginActivity>()) {
-        scoped { DoesntMatterWhoYouAre() as IAuth<Long> }
+        scoped { DoesntMatterWhoYouAre(get()) as IAuth<Long> }
         viewModel { LoginViewModel(get()) }
     }
 }

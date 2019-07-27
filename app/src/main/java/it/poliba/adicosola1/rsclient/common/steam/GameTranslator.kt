@@ -11,9 +11,8 @@ import it.poliba.adicosola1.rsclient.common.rsengine.TranslationStrategy
 import org.koin.core.KoinComponent
 
 class GameTranslator(private val steam: SteamService) : TranslationStrategy, KoinComponent {
-    //TODO: implement database for caching results ???
 
-    private val cache: LruCache<Long, RSObject> = LruCache(100) //allow  only 100 entries
+    private val cache: LruCache<Long, RSObject> = LruCache(100) //allow only 100 entries
 
     override fun translate(obj: RSObject): Observable<RSObject> {
         val hit = cache.get(obj.id)

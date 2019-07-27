@@ -45,8 +45,6 @@ class PresenterActivity : AppCompatActivity() {
             adapter = gameAdapter
         }
 
-        //TODO : remove comment  viewmodel.retrieve(id)
-
     }
 
 }

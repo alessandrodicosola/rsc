@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 class TestEngine : IRSEngine {
     override fun updateRecommendation(userId: String, id: Long, score: Float) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        throw NotImplementedError("updateRecommendation")
     }
 
     override fun getRecommendations(userId: String): Observable<List<RSObject>> {

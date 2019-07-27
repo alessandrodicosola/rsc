@@ -15,7 +15,7 @@ import org.koin.dsl.module
 
 val presenterModule = module {
     scope(named<PresenterActivity>()) {
-        scoped { SteamRSEngine() as IRSEngine }
+        scoped { SteamRSEngine(get()) as IRSEngine }
         scoped { GameTranslator(get()) as TranslationStrategy }
         viewModel { PresenterViewModel(get(), get()) }
     }
