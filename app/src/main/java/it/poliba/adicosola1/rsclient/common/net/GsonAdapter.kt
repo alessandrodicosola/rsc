@@ -4,6 +4,8 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import it.poliba.adicosola1.rsclient.common.util.Response
+import it.poliba.adicosola1.rsclient.common.rsengine.RSObject
 import java.lang.reflect.Type
 
 /**
@@ -17,7 +19,7 @@ class RootAdapter : JsonDeserializer<Root> {
         val appId = values.first().key
 
         val body = values.first().value.asJsonObject
-        if (!body.has("data")) return emptyRoot
+        if (!body.has("data")) return Root(appId, Body(false, Data("unknow", "", "")))
 
         val data = body.get("data") as JsonObject
 
@@ -32,6 +34,27 @@ class RootAdapter : JsonDeserializer<Root> {
                 )
             )
         )
+    }
+}
+
+class LocalhostAdapter : JsonDeserializer<Response<List<RSObject>>> {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): Response<List<RSObject>> {
+        val root = json.asJsonObject
+        val error = root.get("error").asBoolean
+        val msg = root.get("message").asString
+        val recommendations = root.get("recommendations").asJsonArray
+
+        val list: MutableList<RSObject> = mutableListOf()
+
+        recommendations.forEach {
+            list.add(RSObject(it.asJsonObject.get("id").asLong, it.asJsonObject.get("score").asDouble))
+        }
+
+        return Response(list, error, msg)
     }
 
 }

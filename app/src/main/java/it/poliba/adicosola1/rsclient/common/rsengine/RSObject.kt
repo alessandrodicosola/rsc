@@ -6,4 +6,4 @@ package it.poliba.adicosola1.rsclient.common.rsengine
  * @param score value calculated for recommendation object
  */
 
-open class RSObject(val id: Long, val score: Float)
+open class RSObject(val id: Long, val score: Double)

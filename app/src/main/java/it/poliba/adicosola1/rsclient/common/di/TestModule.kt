@@ -6,6 +6,7 @@ import it.poliba.adicosola1.rsclient.common.rsengine.RSObject
 import it.poliba.adicosola1.rsclient.common.rsengine.TranslationStrategy
 import it.poliba.adicosola1.rsclient.common.steam.Game
 import it.poliba.adicosola1.rsclient.common.util.IConnectivity
+import it.poliba.adicosola1.rsclient.common.util.Response
 import it.poliba.adicosola1.rsclient.ui.presenter.PresenterActivity
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -15,17 +16,19 @@ class TestEngine : IRSEngine {
         throw NotImplementedError("updateRecommendation")
     }
 
-    override fun getRecommendations(userId: String): Observable<List<RSObject>> {
+    override fun getRecommendations(userId: String): Observable<Response<List<RSObject>>> {
         return Observable.just(
-            listOf(
-                RSObject(859580, 1.0f),
-                RSObject(976310, 1.0f),
-                RSObject(814380, 1.0f),
-                RSObject(323190, 1.0f),
-                RSObject(466560, 1.0f),
-                RSObject(418240, 1.0f),
-                RSObject(690790, 1.0f),
-                RSObject(750920, 1.0f)
+            Response(
+                listOf(
+                    RSObject(859580, 1.0),
+                    RSObject(976310, 1.0),
+                    RSObject(814380, 1.0),
+                    RSObject(323190, 1.0),
+                    RSObject(466560, 1.0),
+                    RSObject(418240, 1.0),
+                    RSObject(690790, 1.0),
+                    RSObject(750920, 1.0)
+                ), false, ""
             )
         )
     }

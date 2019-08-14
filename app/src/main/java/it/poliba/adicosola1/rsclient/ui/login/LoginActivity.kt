@@ -39,8 +39,8 @@ class LoginActivity : AppCompatActivity() {
         })
 
         viewmodel.userId.observe(this, Observer {
-            val intent = Intent(this, PresenterActivity::class.java).putExtra("id", it)
-                .putExtra("name", layout.usernameText.text)
+            val intent = Intent(this, PresenterActivity::class.java).putExtra("id", it.toString())
+                .putExtra("name", layout.usernameText.text.toString())
             startActivity(intent)
         })
 

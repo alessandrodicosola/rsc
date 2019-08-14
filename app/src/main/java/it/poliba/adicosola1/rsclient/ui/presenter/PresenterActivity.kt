@@ -23,8 +23,8 @@ class PresenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val name = intent.getStringExtra("name")
-        val id = intent.getStringExtra("id")
+        val steamId = intent.getStringExtra("id")
+        val steamName = intent.getStringExtra("name")
 
 
         layout = DataBindingUtil.setContentView(this, R.layout.activity_presenter)
@@ -45,6 +45,7 @@ class PresenterActivity : AppCompatActivity() {
             adapter = gameAdapter
         }
 
+        viewmodel.retrieve(steamId)
     }
 
 }

@@ -20,7 +20,7 @@ interface SteamService {
      * @return Returns [Root] composed by Id and [Body]
      *
      * */
-    @GET("appdetails") /* Translate to "appdetails/appIds=value" */
+    @GET("appdetails") /* Translate to "appdetails?appIds=value" */
     fun getAppDetails(@Query("appids") appId: Long): Observable<Root>
 
 
