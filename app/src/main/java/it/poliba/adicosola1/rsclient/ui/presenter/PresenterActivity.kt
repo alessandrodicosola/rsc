@@ -25,7 +25,7 @@ class PresenterActivity : AppCompatActivity() {
 
         val steamId = intent.getStringExtra("id")
         val steamName = intent.getStringExtra("name")
-
+        title = "USER $steamName [$steamId]"
 
         layout = DataBindingUtil.setContentView(this, R.layout.activity_presenter)
 

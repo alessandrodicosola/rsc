@@ -9,7 +9,9 @@ import java.io.InputStreamReader
 /**
  * This [IAuth] implementation returns a random user id from an internal list
  */
-class DoesntMatterWhoYouAre(context: Context) : IAuth<Long> {
+class LocalHostAuth(context: Context) : IAuth<Long> {
+
+
     /*
         private val ids: List<String> by lazy {
             val buffered = InputStreamReader(context.resources.openRawResource(R.raw.users))
@@ -19,10 +21,10 @@ class DoesntMatterWhoYouAre(context: Context) : IAuth<Long> {
     private val ids = listOf<Long>(76561198014912110, 76561198015082830)
 
     override fun connect(username: String, password: String): Observable<Response<Long>> {
-        return Observable.just(Response(ids.random().toLong(), false, ""))
+        return Observable.just(Response(ids.random(), false, ""))
     }
 
-    override fun disconnect(username: String) {
+    override fun disconnect(username: String): Observable<Response<Boolean>> {
         throw NotImplementedError("disconnect")
     }
 

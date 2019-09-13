@@ -37,21 +37,21 @@ class RootAdapter : JsonDeserializer<Root> {
     }
 }
 
-class LocalhostAdapter : JsonDeserializer<Response<List<RSObject>>> {
+class LocalhostAdapter : JsonDeserializer<Response<List<RSObject<Int,Double>>>> {
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type,
         context: JsonDeserializationContext
-    ): Response<List<RSObject>> {
+    ): Response<List<RSObject<Int,Double>>> {
         val root = json.asJsonObject
         val error = root.get("error").asBoolean
         val msg = root.get("message").asString
         val recommendations = root.get("recommendations").asJsonArray
 
-        val list: MutableList<RSObject> = mutableListOf()
+        val list: MutableList<RSObject<Int,Double>> = mutableListOf()
 
         recommendations.forEach {
-            list.add(RSObject(it.asJsonObject.get("id").asLong, it.asJsonObject.get("score").asDouble))
+            list.add(RSObject(it.asJsonObject.get("id").asInt, it.asJsonObject.get("score").asDouble))
         }
 
         return Response(list, error, msg)

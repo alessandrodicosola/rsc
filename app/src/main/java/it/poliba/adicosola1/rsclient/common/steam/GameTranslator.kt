@@ -12,13 +12,13 @@ import org.koin.core.KoinComponent
 /**
  * Translate [RSObject] to [Game]
  */
-class GameTranslator(private val steam: SteamService) : TranslationStrategy, KoinComponent {
+class GameTranslator(private val steam: SteamService) : TranslationStrategy<Int,Double>, KoinComponent {
 
-    private val cache: LruCache<Long, RSObject> = LruCache(100) //allow only 100 entries
+    private val cache: LruCache<Int, RSObject<Int,Double>> = LruCache(100) //allow only 100 entries
     /**
      * @return [Game]. On error returns [RSObject]
      */
-    override fun translate(obj: RSObject): Observable<RSObject> {
+    override fun translate(obj: RSObject<Int,Double>): Observable<RSObject<Int,Double>> {
         val hit = cache.get(obj.id)
         if (hit != null) return Observable.just(hit)
         else return steam.getAppDetails(obj.id)

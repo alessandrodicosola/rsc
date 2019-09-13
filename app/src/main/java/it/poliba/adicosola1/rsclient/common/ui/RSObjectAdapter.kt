@@ -1,19 +1,29 @@
 package it.poliba.adicosola1.rsclient.common.ui
 
+import android.annotation.SuppressLint
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import it.poliba.adicosola1.rsclient.common.rsengine.RSObject
 
-abstract class RSObjectAdapter<V : ViewDataBinding, VH : GenericViewHolder<V, RSObject>>(factory: Factory<RSObject, V, VH>) :
-    BaseAdapter<RSObject, V, VH>(factory, RSObjectDiffUtil())
+abstract class RSObjectAdapter<ItemType, ValueType, V : ViewDataBinding, VH : GenericViewHolder<V, RSObject<ItemType, ValueType>>>(
+    factory: Factory<RSObject<ItemType, ValueType>, V, VH>
+) :
+    BaseAdapter<RSObject<ItemType, ValueType>, V, VH>(factory, RSObjectDiffUtil())
 
-class RSObjectDiffUtil : DiffUtil.ItemCallback<RSObject>() {
-    override fun areItemsTheSame(oldItem: RSObject, newItem: RSObject): Boolean {
+class RSObjectDiffUtil<ItemType, ValueType> : DiffUtil.ItemCallback<RSObject<ItemType, ValueType>>() {
+    override fun areItemsTheSame(
+        oldItem: RSObject<ItemType, ValueType>,
+        newItem: RSObject<ItemType, ValueType>
+    ): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: RSObject, newItem: RSObject): Boolean {
-        return oldItem.id == newItem.id && oldItem.score == newItem.score
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(
+        oldItem: RSObject<ItemType, ValueType>,
+        newItem: RSObject<ItemType, ValueType>
+    ): Boolean {
+        return oldItem == newItem
     }
 
 }

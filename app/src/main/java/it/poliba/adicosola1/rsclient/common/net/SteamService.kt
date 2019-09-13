@@ -21,7 +21,7 @@ interface SteamService {
      *
      * */
     @GET("appdetails") /* Translate to "appdetails?appIds=value" */
-    fun getAppDetails(@Query("appids") appId: Long): Observable<Root>
+    fun getAppDetails(@Query("appids") appId: Int): Observable<Root>
 
 
 }

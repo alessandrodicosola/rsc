@@ -8,6 +8,6 @@ import it.poliba.adicosola1.rsclient.common.util.Response
  */
 interface IAuth<T> {
     fun connect(username: String, password: String): Observable<Response<T>>
-    fun disconnect(username: String)
+    fun disconnect(username: String) : Observable<Response<Boolean>>
 }
 

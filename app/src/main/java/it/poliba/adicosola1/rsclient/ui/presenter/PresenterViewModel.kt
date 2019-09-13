@@ -1,5 +1,6 @@
 package it.poliba.adicosola1.rsclient.ui.presenter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,18 +22,19 @@ import org.koin.core.KoinComponent
 import java.util.concurrent.TimeUnit
 
 
-class PresenterViewModel(private val engine: IRSEngine, private val translationStrategy: TranslationStrategy) :
+class PresenterViewModel(private val engine: IRSEngine<Long,Int,Double>, private val translationStrategy: TranslationStrategy<Int,Double>) :
     ViewModel(), KoinComponent {
 
 
-    val items = MutableLiveData<List<RSObject>>()
+    val items = MutableLiveData<List<RSObject<Int,Double>>>()
     val status = MutableLiveData<EventHandler>()
 
+    @SuppressLint("CheckResult")
     fun retrieve(userid: String) {
 
-        var internalList = listOf<RSObject>()
-        val tempList = mutableListOf<RSObject>()
-        engine.getRecommendations(userid).subscribeOn(Schedulers.io())
+        var internalList = listOf<RSObject<Int,Double>>()
+        val tempList = mutableListOf<RSObject<Int,Double>>()
+        engine.getRecommendations(userid.toLong()).subscribeOn(Schedulers.io())
             .doOnComplete {
                 Observable.fromIterable(internalList.map { translationStrategy.translate(it) })
                     .buffer(10, 10)
@@ -48,10 +50,9 @@ class PresenterViewModel(private val engine: IRSEngine, private val translationS
                             tempList.add(it)
                         }
                     }
-
             }.subscribe {
                 if (it.error) status.postValue(Error(it.message).toWrapper())
-                else internalList = it.body
+                else internalList = it.body.asSequence().filter { it.score > 0 }.sortedByDescending { it.score }.take(50).toList()
             }
     }
 

@@ -15,8 +15,8 @@ import org.koin.dsl.module
 
 val presenterModule = module {
     scope(named<PresenterActivity>()) {
-        scoped { LocalHostEngine(get(),get()) as IRSEngine }
-        scoped { GameTranslator(get()) as TranslationStrategy }
+        scoped { LocalHostEngine(get(),get()) as IRSEngine<Long,Int,Double> }
+        scoped { GameTranslator(get()) as TranslationStrategy<Int,Double> }
         viewModel { PresenterViewModel(get(), get()) }
     }
 

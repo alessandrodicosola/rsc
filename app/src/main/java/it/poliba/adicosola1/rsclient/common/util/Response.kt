@@ -14,4 +14,4 @@ data class Response<T>(val body: T, val error: Boolean, val message: String)
 /**
  * must for deserialization
  */
-class ResponseListRSObjectToken : TypeToken<Response<List<RSObject>>>()
+class ResponseListRSObjectToken : TypeToken<Response<List<RSObject<Int,Double>>>>()

@@ -5,9 +5,9 @@ import io.reactivex.Observable
 /**
  * Factory class for extending [RSObject] with additional information
  */
-interface TranslationStrategy {
+interface TranslationStrategy<ItemType, ValueType> {
     /**
      * Async translate
      */
-    fun translate(obj: RSObject): Observable<RSObject>
+    fun translate(obj: RSObject<ItemType, ValueType>): Observable<RSObject<ItemType, ValueType>>
 }

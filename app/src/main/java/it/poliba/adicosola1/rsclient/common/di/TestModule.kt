@@ -11,12 +11,12 @@ import it.poliba.adicosola1.rsclient.ui.presenter.PresenterActivity
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class TestEngine : IRSEngine {
-    override fun updateRecommendation(userId: String, id: Long, score: Float) {
+class TestEngine : IRSEngine<Long, Int, Double> {
+    override fun updateRecommendation(userId: Long, id: Int, score: Double) {
         throw NotImplementedError("updateRecommendation")
     }
 
-    override fun getRecommendations(userId: String): Observable<Response<List<RSObject>>> {
+    override fun getRecommendations(userId: Long): Observable<Response<List<RSObject<Int, Double>>>> {
         return Observable.just(
             Response(
                 listOf(
@@ -34,8 +34,8 @@ class TestEngine : IRSEngine {
     }
 }
 
-class TestTranslator : TranslationStrategy {
-    override fun translate(obj: RSObject): Observable<RSObject> {
+class TestTranslator : TranslationStrategy<Int, Double> {
+    override fun translate(obj: RSObject<Int, Double>): Observable<RSObject<Int, Double>> {
         return Observable.just(
             Game(
                 obj.id.toString(),
@@ -58,8 +58,8 @@ class AlwaysOnline : IConnectivity {
 
 val testPresenterModule = module {
     scope(named<PresenterActivity>()) {
-        scoped(override = true) { TestEngine() as IRSEngine }
-        scoped(override = true) { TestTranslator() as TranslationStrategy }
+        scoped(override = true) { TestEngine() as IRSEngine<Long, Int, Double> }
+        scoped(override = true) { TestTranslator() as TranslationStrategy<Int, Double> }
 
     }
 }

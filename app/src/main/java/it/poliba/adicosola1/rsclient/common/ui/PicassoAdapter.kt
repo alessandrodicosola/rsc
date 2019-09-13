@@ -9,7 +9,7 @@ import it.poliba.adicosola1.rsclient.R
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
-    if (url.isBlank()) view.setImageResource(R.drawable.ic_error_black_24dp)
+    if (url.isBlank()) view.setImageResource(R.drawable.viewholder_game_background)
     else Picasso.get().load(url).fit().centerInside().error(R.drawable.ic_error_black_24dp).into(view)
 }
 

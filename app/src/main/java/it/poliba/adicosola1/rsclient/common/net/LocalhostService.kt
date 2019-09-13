@@ -10,5 +10,5 @@ import retrofit2.http.Query
 interface LocalhostService {
     //http://127.0.0.1:3306/recommendations/calculate.php?id=xxxx
     @GET("calculate.php")
-    fun getResponse(@Query("id") userId: Long): Observable<Response<List<RSObject>>>
+    fun getResponse(@Query("id") userId: Long): Observable<Response<List<RSObject<Int,Double>>>>
 }

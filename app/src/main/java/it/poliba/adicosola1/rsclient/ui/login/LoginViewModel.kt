@@ -10,7 +10,6 @@ import it.poliba.adicosola1.rsclient.common.util.IConnectivity
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-//FIXME Avoid IAuth<T>
 class LoginViewModel(val auth: IAuth<Long>) : ViewModel(), KoinComponent {
 
     private val connectivityHelper: IConnectivity by inject()
