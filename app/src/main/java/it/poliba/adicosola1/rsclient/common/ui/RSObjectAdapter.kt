@@ -23,7 +23,9 @@ class RSObjectDiffUtil<ItemType, ValueType> : DiffUtil.ItemCallback<RSObject<Ite
         oldItem: RSObject<ItemType, ValueType>,
         newItem: RSObject<ItemType, ValueType>
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.score == newItem.score
     }
+
+
 
 }

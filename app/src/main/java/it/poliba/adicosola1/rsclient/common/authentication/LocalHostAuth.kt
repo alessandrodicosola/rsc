@@ -18,7 +18,7 @@ class LocalHostAuth(context: Context) : IAuth<Long> {
             buffered.readLines()
         }
     */
-    private val ids = listOf<Long>(76561198014912110, 76561198015082830)
+    private val ids = listOf<Long>(76561198015082830)
 
     override fun connect(username: String, password: String): Observable<Response<Long>> {
         return Observable.just(Response(ids.random(), false, ""))

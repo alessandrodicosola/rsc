@@ -51,7 +51,7 @@ private fun createLocalhostService(
     callAdapterFactory: CallAdapter.Factory,
     httpClient: OkHttpClient
 ): LocalhostService {
-    return Retrofit.Builder().baseUrl("http://192.168.1.170/recommendations/")
+    return Retrofit.Builder().baseUrl("http://192.168.43.253/recommendations/")
         .addConverterFactory(converter)
         .addCallAdapterFactory(callAdapterFactory)
         .client(httpClient)

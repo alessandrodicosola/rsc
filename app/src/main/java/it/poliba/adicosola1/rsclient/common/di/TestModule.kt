@@ -12,11 +12,13 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 class TestEngine : IRSEngine<Long, Int, Double> {
+
+
     override fun updateRecommendation(userId: Long, id: Int, score: Double) {
         throw NotImplementedError("updateRecommendation")
     }
 
-    override fun getRecommendations(userId: Long): Observable<Response<List<RSObject<Int, Double>>>> {
+    override fun getRecommendations(userId: Long, itemId: Int): Observable<Response<List<RSObject<Int, Double>>>> {
         return Observable.just(
             Response(
                 listOf(

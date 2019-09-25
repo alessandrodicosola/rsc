@@ -19,7 +19,7 @@ class RootAdapter : JsonDeserializer<Root> {
         val appId = values.first().key
 
         val body = values.first().value.asJsonObject
-        if (!body.has("data")) return Root(appId, Body(false, Data("unknow", "", "")))
+        if (!body.has("data")) return Root(appId, Body(false, Data(appId, "", "")))
 
         val data = body.get("data") as JsonObject
 
@@ -46,6 +46,8 @@ class LocalhostAdapter : JsonDeserializer<Response<List<RSObject<Int,Double>>>> 
         val root = json.asJsonObject
         val error = root.get("error").asBoolean
         val msg = root.get("message").asString
+        if (error) return Response(emptyList(),true,msg);
+
         val recommendations = root.get("recommendations").asJsonArray
 
         val list: MutableList<RSObject<Int,Double>> = mutableListOf()
@@ -54,7 +56,7 @@ class LocalhostAdapter : JsonDeserializer<Response<List<RSObject<Int,Double>>>> 
             list.add(RSObject(it.asJsonObject.get("id").asInt, it.asJsonObject.get("score").asDouble))
         }
 
-        return Response(list, error, msg)
+        return Response(list, false, "")
     }
 
 }
