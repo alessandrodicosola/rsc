@@ -42,7 +42,7 @@ class PresenterViewModel(
         engine.getRecommendations(userid.toLong(), Int.MAX_VALUE).subscribeOn(Schedulers.io())
             .doOnComplete {
                 internalList.forEach {
-                    translationStrategy.translate(it).delay(500,TimeUnit.MILLISECONDS).doOnComplete { items.postValue(tempList) }.subscribe { synchronized(lockObject){ tempList.add(it); } }
+                    translationStrategy.translate(it).delay(500,TimeUnit.MILLISECONDS).doOnComplete { items.postValue(tempList) }.subscribe {  synchronized(lockObject) { tempList.add(it);}  }
                 }
 
             }.subscribe {

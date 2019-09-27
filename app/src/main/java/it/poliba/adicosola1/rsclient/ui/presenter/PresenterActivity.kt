@@ -1,10 +1,12 @@
 package it.poliba.adicosola1.rsclient.ui.presenter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import it.poliba.adicosola1.rsclient.R
 import it.poliba.adicosola1.rsclient.databinding.ActivityPresenterBinding
