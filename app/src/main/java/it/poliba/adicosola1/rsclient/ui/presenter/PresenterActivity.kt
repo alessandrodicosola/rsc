@@ -34,7 +34,9 @@ class PresenterActivity : AppCompatActivity() {
         val factory = GameAdapterFactory()
         val gameAdapter = GameAdapter(factory)
 
-        viewmodel.items.observe(this, Observer { gameAdapter.updateList(it) })
+        viewmodel.items.observe(this, Observer {
+            val sorted = it.sortedByDescending { it.score }
+            gameAdapter.updateList(sorted) })
         viewmodel.status.observe(
             this,
             Observer { Snackbar.make(layout.coordinatorLayout, it.get()?.message!!, Snackbar.LENGTH_LONG).show() })
