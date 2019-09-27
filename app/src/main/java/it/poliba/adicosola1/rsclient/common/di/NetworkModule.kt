@@ -21,7 +21,7 @@ private fun createOkHttpClient(): OkHttpClient {
 }
 
 
-
+// Modulo contenente le classi degli oggetti riguardanti il networking
 val networkModule = module {
     single { ConnectivityHelper(get()) as IConnectivity }
     single { createCallAdapterFactory() }

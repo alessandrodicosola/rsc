@@ -5,5 +5,4 @@ package it.poliba.adicosola1.rsclient.common.rsengine
  * @param id number used for identify object inside database
  * @param score value calculated for recommendation object
  */
-
 open class RSObject<ItemType,ValueType>(val id: ItemType, val score: ValueType)

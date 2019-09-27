@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-
+//Restituisce la classe che deserializza il json ottenuto dall'API di steam
 private fun createRootConverter(): GsonConverterFactory {
     return GsonConverterFactory.create(
         GsonBuilder().registerTypeAdapter(
@@ -24,7 +24,7 @@ private fun createRootConverter(): GsonConverterFactory {
         ).create()
     )
 }
-
+//Restituisce la classe che deserializza il json ottenuto dal server
 private fun createLocalhostConverter(): GsonConverterFactory {
     return GsonConverterFactory.create(
         GsonBuilder().registerTypeAdapter(
@@ -33,7 +33,7 @@ private fun createLocalhostConverter(): GsonConverterFactory {
         ).setLenient().create()
     )
 }
-
+//Restituisce la classe che si connette all'API di steam
 private fun createSteamService(
     converter: GsonConverterFactory,
     callAdapterFactory: CallAdapter.Factory,
@@ -45,7 +45,7 @@ private fun createSteamService(
         .client(httpClient)
         .build().create(SteamService::class.java)
 }
-
+//Restituisce la classe che si connette al server
 private fun createLocalhostService(
     converter: GsonConverterFactory,
     callAdapterFactory: CallAdapter.Factory,
@@ -58,7 +58,7 @@ private fun createLocalhostService(
         .build().create(LocalhostService::class.java)
 }
 
-
+//Restituisce il modulo
 val steamModule = module {
     scope(named<PresenterActivity>()) {
         scoped(named("rootConverter")) { createRootConverter() }

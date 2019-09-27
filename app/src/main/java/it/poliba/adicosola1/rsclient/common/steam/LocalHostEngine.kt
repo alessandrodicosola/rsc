@@ -10,6 +10,9 @@ import it.poliba.adicosola1.rsclient.common.rsengine.RSObject
 import it.poliba.adicosola1.rsclient.common.util.IConnectivity
 import it.poliba.adicosola1.rsclient.common.util.Response
 
+/**
+ * Implementazione del [IRSEngine] avviato nel server locale
+ */
 class LocalHostEngine(val connectivity: IConnectivity, private val localService: LocalhostService) : IRSEngine<Long,Int,Double> {
     override fun getRecommendations(userId: Long,itemId:Int): Observable<Response<List<RSObject<Int,Double>>>> {
         if (!connectivity.isOnline()) return Observable.empty()

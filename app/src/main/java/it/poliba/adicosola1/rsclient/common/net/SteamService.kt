@@ -3,7 +3,7 @@ package it.poliba.adicosola1.rsclient.common.net
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-
+//Interfaccia che definisce le operazioni del servizio API di steam
 //https://store.steampowered.com/api/appdetails?appids=57690
 interface SteamService {
     /**

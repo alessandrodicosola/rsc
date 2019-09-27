@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+// Modulo contenente le classi degli oggetti riguardanti il l'interfaccia su cui si visualizzano i giochi
 val presenterModule = module {
     scope(named<PresenterActivity>()) {
         scoped { LocalHostEngine(get(),get()) as IRSEngine<Long,Int,Double> }
