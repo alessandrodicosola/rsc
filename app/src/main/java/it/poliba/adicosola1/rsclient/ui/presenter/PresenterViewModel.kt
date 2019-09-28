@@ -35,16 +35,24 @@ class PresenterViewModel(
 
     @SuppressLint("CheckResult")
     fun retrieve(userid: String) {
+		//Oggetto per eseguire il lock quando si accede a una risorsa da diversi thread
         val lockObject = Object()
-        var internalList = listOf<RSObject<Int, Double>>()
+		//Lista temporanea in cui salvare le raccomandazioni ricevute
+		var internalList = listOf<RSObject<Int, Double>>()
+		//Lista interna in cui inserire le raccomandazioni "tradotte"
         val tempList = mutableListOf<RSObject<Int, Double>>()
-
-        engine.getRecommendations(userid.toLong(), Int.MAX_VALUE).subscribeOn(Schedulers.io())
+		//Prelevo le raccomandazioni: itemId in questo caso non serve
+		//Questo viene fatto in un nuovo thread rispetto a quello principale
+        engine.getRecommendations(userid.toLong(), -1).subscribeOn(Schedulers.io())
             .doOnComplete {
+				
                 internalList.forEach {
-                    translationStrategy.translate(it).delay(500,TimeUnit.MILLISECONDS).doOnComplete { items.postValue(tempList) }.subscribe {  synchronized(lockObject) { tempList.add(it);}  }
+					//"Traduco" le raccomandazioni con 500ms di ritardo per evitare di sovraccaricare il servizio da cui si ottengolo le informazioni generali sulle raccomandazioni
+					//Inizio la traduzione e inserisco l'oggetto nella lista temporanea
+					//Quando la traduzione è completata invio la lista all'interfaccia attraverso il pattern Observable/Observer definito da RxJava
+					translationStrategy.translate(it).delay(500,TimeUnit.MILLISECONDS).doOnComplete { items.postValue(tempList) }.subscribe {  synchronized(lockObject) { tempList.add(it);}  }
                 }
-
+			//Avvio la ricezione delle raccomandazioni verificando che non ci siano errori
             }.subscribe {
                 if (it.error) status.postValue(Error(it.message).toWrapper())
                 else internalList =
